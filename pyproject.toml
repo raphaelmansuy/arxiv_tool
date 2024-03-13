@@ -15,7 +15,7 @@ pydantic = "^2.6.4"
 
 # the tools
 [tool.poetry.scripts]
-arxiv-tool = "arxiv_tool.cli:main"
+arxiv-tool = "arxiv_tool.main:main"
 
 
 [build-system]
