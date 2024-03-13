@@ -1,4 +1,3 @@
-```markdown
 # ArXiv Article Extractor
 
 This Python script is designed to extract and compile a list of articles from the arXiv repository within a specified date range. It specifically targets articles related to artificial intelligence in the Computer Science (cs) category. The script generates a Markdown file containing a table of articles with details such as the arXiv ID, submission date, title, authors, and a full abstract.
