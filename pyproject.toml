@@ -14,8 +14,8 @@ rich = "^13.7.1"
 pydantic = "^2.6.4"
 
 # the tools
-[tool.pdm.scripts.run]
-main = "arxiv_tool.main"
+[tool.poetry.scripts]
+arxiv-tool = "arxiv_tool.cli:main"
 
 
 [build-system]
