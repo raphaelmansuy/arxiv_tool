@@ -15,7 +15,7 @@ pydantic = "^2.6.4"
 
 # the tools
 [tool.pdm.scripts.run]
-main = "arxiv_tool.main:main"
+main = "arxiv_tool.main"
 
 
 [build-system]
