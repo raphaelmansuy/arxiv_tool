@@ -65,6 +65,5 @@ Contributions are welcome! Feel free to submit pull requests or create issues fo
 ## License
 
 This script is provided as-is, with no warranty. You are free to use, modify, and distribute it under the terms of your choosing. Please check with the arXiv terms of service regarding the use of their data.
-```
 
 Keep in mind that this `README.md` is a template and should be modified to fit your project's specifics and additional details as needed. If you have any particular sections or details you'd like to add or modify, please let me know, and I can assist you further.
