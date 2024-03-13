@@ -46,6 +46,12 @@ python arxiv_extractor.py extract --from-date 2023-03-01 --to-date 2023-03-31 --
 
 This will extract articles from March 1, 2023, to March 31, 2023, and save the Markdown file in the `./articles` directory.
 
+## Installation with pipx
+
+```bash
+pipx install git+https://github.com/raphaelmansuy/arxiv_tool.git --force --include-dep
+```
+
 ## Output
 
 The script creates a Markdown file named with the date range of the articles, for example, "2023-03-01_to_2023-03-31-arxiv.md". The file contains a table with the following columns:
