@@ -31,9 +31,10 @@ pip install requests beautifulsoup4 pydantic rich click
 To use the script, execute it from the command line with the following options:
 
 ```bash
-python arxiv_extractor.py extract --from-date YYYY-MM-DD --to-date YYYY-MM-DD --target-dir /path/to/directory
+python arxiv_extractor.py extract --query "Artifical Intelligence" --from-date YYYY-MM-DD --to-date YYYY-MM-DD --target-dir /path/to/directory
 ```
 
+- `--query`: The query
 - `--from-date`: The start date for the articles to be extracted. (format: YYYY-MM-DD)
 - `--to-date`: The end date for the articles. (format: YYYY-MM-DD)
 - `--target-dir`: The directory where the Markdown file will be saved.

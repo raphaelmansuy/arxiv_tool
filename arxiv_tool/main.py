@@ -3,6 +3,7 @@ from typing import List
 from datetime import datetime, timedelta
 import requests
 from pydantic import BaseModel
+# pylint: disable=W0622
 from rich import print
 from bs4 import BeautifulSoup
 import click
@@ -104,14 +105,16 @@ def extract_article_detail(article) -> Article:  # Removed 'soup' parameter
     )
 
 
-def get_articles(from_date: datetime, to_date_time: datetime) -> List[Article]:
+def get_articles(query: str, from_date: datetime, to_date_time: datetime) -> List[Article]:
     """
     Get the articles from arXiv
     """
     print("Sending request to arXiv...")
     search_from_date = from_date.strftime("%Y-%m-%d")
     search_to_date = to_date_time.strftime("%Y-%m-%d")
-    url = "https://arxiv.org/search/cs?query=artificial+intelligence&searchtype=all&abstracts=show&order=-submitted_date&size=200"
+    ## URL encode the query
+    encoded_query = query.replace(" ", "+")
+    url = f"https://arxiv.org/search/cs?query={encoded_query}&searchtype=all&abstracts=show&order=-submitted_date&size=200"
     url += f"&date-filter_by=date_range&from_date={search_from_date}&to_date={search_to_date}"
     url += "&date-date_type=submitted_date"
 
@@ -151,9 +154,13 @@ def format_article_to_markdown(articles: List[Article]) -> str:
 
 
 def extract_articles(
+    query: str,
     from_date: datetime, to_date: datetime, target_dir: str = None
 ) -> None:
-    articles = get_articles(from_date=from_date, to_date_time=to_date)
+    """
+    Extract articles from arXiv within a specified date range.
+    """
+    articles = get_articles(query,from_date=from_date, to_date_time=to_date)
     if articles is not None and len(articles) > 0:
         from_date_display = from_date.strftime("%Y-%m-%d")
         to_date_display = to_date.strftime("%Y-%m-%d")
@@ -178,6 +185,13 @@ def extract_articles(
 
 @click.command("extract", help="Extract articles from arXiv within a specified date range.")
 @click.option(
+    '--query', 'query', 
+    type=str, 
+    required=True, 
+    help='Search query for the articles. ex: "quantum computing" or "quantum+computing"',
+    default="Artificial Intelligence"
+)
+@click.option(
     '--from-date', 'from_date', 
     type=click.DateTime(formats=["%Y-%m-%d"]),
     default=datetime.now(), 
@@ -194,7 +208,7 @@ def extract_articles(
     type=click.Path(exists=True, file_okay=False, dir_okay=True, writable=True), 
     help='Directory to save the articles.'
 )
-def main(from_date: datetime, to_date: datetime, target_dir: str = None):
+def main(query: str,from_date: datetime, to_date: datetime, target_dir: str = None):
     """
     Extract articles from arXiv within a specified date range.
 
@@ -202,8 +216,10 @@ def main(from_date: datetime, to_date: datetime, target_dir: str = None):
     :param to_date: End date for the articles.
     """
     # Your function logic here
-    print("Extracting articles from arXiv...")
-    extract_articles(from_date, to_date, target_dir)
+    print(f"Extracting articles from arXiv for '{query}' ...")
+    extract_articles(query,from_date, to_date, target_dir)
 
 if __name__ == "__main__":
+    # ignore Pylint error E1120
+    # pylint: disable=no-value-for-parameter
     main()
